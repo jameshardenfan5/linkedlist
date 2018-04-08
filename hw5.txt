@@ -1,0 +1,100 @@
+HOMEWORK 5
+
+Given a text file, create a binary tree where there is a node for each word that appears at least once in the file and the order of placing the words on the tree is such that left word < parent word < right word in the alphabetical order everywhere in the tree. The node also stores the positions where its word appears in the file. For example, if word "the" appears in three places: (line 3, offset 10), (line 10, offset 2), and (line 129, offset 33), the line number and offset position (word order on the line) are stored.
+
+The program also allows us to edit the file by adding or removing a word at a given position and removing all the occurrences of a given word. The updated file will be saved.
+
+The node information is structured as follows:
+
+struct Position {
+	int line; // line number
+	int offset; // 1, 2, 3, ...: 1st, 2nd, 3rd, ... word on the line
+	struct Position *next;
+};
+
+struct TreeNode {
+	char *word;
+	struct Positions *positions; // store positions where the word occurs
+	struct TreeNode *parent; 
+	struct TreeNode *left;
+	struct TreeNode *right;
+};
+
+We need to implement the following functions:
+
+struct TreeNode *insertNode(struct TreeNode *tree, char[] word, struct Position pos) {
+	// insert word on a given line at a given offset position
+	// if line exists but offset does not, add it as the last word on the line
+	// if line does not exist, add it as the first word on a new line at the end
+	// if a node for the word already exists, update the position information
+	// else, add a new node as left (right) child of some parent node 
+	// to satisfy the tree order
+	// update the tree (including updates of position information of other words)
+	...
+}
+
+struct TreeNode *removeWord(struct TreeNode *tree, char[] word) {
+	// return same tree if word is not stored in tree
+	// else, remove its node
+	// update the tree (including updates of position information of other words)
+	...
+}
+
+
+struct TreeNode *removePosition(struct TreeNode *tree, struct Position pos) {
+	// find the node that stores a word at this position
+	// do nothing and return same tree if not found
+	// else, remove this position 
+	// and remove node if there is no position left associated with the word
+	// update the tree (including updates of position information of other words)
+	...
+}
+
+struct TreeNode *removeLine(struct TreeNode *tree, int line) {
+	// do nothing and return same tree if line is not found
+	// else, remove the entire line and all the corresponding nodes
+	// update the tree (including updates of position information of words)
+	...
+}
+
+void saveTree(struct TreeNode *tree, char[] filename) {
+	// create a text file consisting of the words in tree 
+	// at their corresponding positions
+	...
+}
+
+
+int main() {
+
+	// open input text file and create the tree accordingly
+	// perform a number of insert/remove operations
+	// save new tree into a text file (this is the output of the program)
+}
+
+
+INPUT (stdin): need to read input from stdin (as in earlier HWs)
+
+first line: name of input text file and name of output text file. 
+next lines: a list of insert/remove operations each described on a line, until you see the line "END". After the "END" line, there may be other texts. You don't need to read these texts after the "END" line. These texts are included for testing purposes on the server side.
+
+For example, a test input can be as follows: 
+
+=====begin of stdin input ====
+input_file_name output_file_name
+I hello 3 5
+I hello 4 50
+R world 
+R 20 1
+RL 5
+END
+blah blah blah ...
+blah blah blah ...
+blah blah blah ...
+blah blah blah ...
+=====end of stdin input ====
+
+Here, "I" means "insert" and "R" means "remove" and "RL" means removing a line. When two numbers "3 5" are shown, the first number is the line number (3) and the second number is the offset (5). Remember to stop reading stdin when you see the "END" line (not the EOF).
+
+OUTPUT:
+
+a text file with name (output_file_name) specified on the first line of stdin input above, resulted from the input text file (input_file_name) after the insert/remove operations.
