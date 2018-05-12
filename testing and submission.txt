@@ -1,4 +1,4 @@
 Testing: test locally using the test files. 2 ways:
 At the command line, type "./grading.sh hw5.c"
 If the above does not work, run with each input and compare its output with the test output using command "diff fileA fileB"
-Submission: submit your .c code via email to TA by 1AM December 19, 2017 thuy.do001@umb.edu
+Submission: submit your .c code via email to TA by 1AM December 19, 2017
